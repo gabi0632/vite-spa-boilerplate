@@ -20,6 +20,8 @@ class VitalWatch {
     this.setupParallaxEffects();
     this.setupHealthcareAnimations();
     this.setupScrollAnimations();
+    this.setupFAQInteractivity();
+    this.setupWaitlistForm();
   }
 
   showLoadingAnimation() {
@@ -294,6 +296,113 @@ class VitalWatch {
       observer.observe(el);
     });
   }
+
+  setupFAQInteractivity() {
+    document.querySelectorAll('.faq-item').forEach(item => {
+      const question = item.querySelector('.faq-question');
+      const answer = item.querySelector('.faq-answer');
+      const toggle = item.querySelector('.faq-toggle');
+
+      question.addEventListener('click', () => {
+        const isOpen = item.classList.contains('open');
+        
+        // Close all other FAQ items
+        document.querySelectorAll('.faq-item').forEach(otherItem => {
+          if (otherItem !== item) {
+            otherItem.classList.remove('open');
+            otherItem.querySelector('.faq-toggle').textContent = '+';
+          }
+        });
+
+        // Toggle current item
+        if (isOpen) {
+          item.classList.remove('open');
+          toggle.textContent = '+';
+        } else {
+          item.classList.add('open');
+          toggle.textContent = '−';
+        }
+      });
+    });
+  }
+
+  setupWaitlistForm() {
+    const emailInput = document.getElementById('email-input');
+    const joinButton = document.getElementById('join-waitlist-btn');
+    const successMessage = document.getElementById('success-message');
+    const waitlistForm = document.querySelector('.waitlist-form');
+
+    // Mock data storage for waitlist emails
+    this.waitlistEmails = JSON.parse(localStorage.getItem('vitalwatch-waitlist') || '[]');
+
+    joinButton.addEventListener('click', () => {
+      const email = emailInput.value.trim();
+      
+      if (this.isValidEmail(email)) {
+        this.addToWaitlist(email);
+        this.showSuccessMessage();
+      } else {
+        this.showEmailError();
+      }
+    });
+
+    emailInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        joinButton.click();
+      }
+    });
+
+    // Clear error styling on input
+    emailInput.addEventListener('input', () => {
+      emailInput.classList.remove('error');
+    });
+  }
+
+  isValidEmail(email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  }
+
+  addToWaitlist(email) {
+    // Check if email already exists
+    if (!this.waitlistEmails.includes(email)) {
+      this.waitlistEmails.push(email);
+      localStorage.setItem('vitalwatch-waitlist', JSON.stringify(this.waitlistEmails));
+    }
+  }
+
+  showSuccessMessage() {
+    const waitlistForm = document.querySelector('.waitlist-form');
+    const successMessage = document.getElementById('success-message');
+    
+    // Hide form with animation
+    waitlistForm.style.opacity = '0';
+    waitlistForm.style.transform = 'translateY(-20px)';
+    
+    setTimeout(() => {
+      waitlistForm.style.display = 'none';
+      successMessage.classList.remove('hidden');
+      successMessage.style.opacity = '0';
+      successMessage.style.transform = 'translateY(20px)';
+      
+      // Animate success message in
+      setTimeout(() => {
+        successMessage.style.opacity = '1';
+        successMessage.style.transform = 'translateY(0)';
+      }, 50);
+    }, 300);
+  }
+
+  showEmailError() {
+    const emailInput = document.getElementById('email-input');
+    emailInput.classList.add('error');
+    
+    // Add shake animation
+    emailInput.style.animation = 'shake 0.5s ease-in-out';
+    setTimeout(() => {
+      emailInput.style.animation = '';
+    }, 500);
+  }
 }
 
 // Add enhanced healthcare animation styles
@@ -337,6 +446,12 @@ style.textContent = `
       opacity: 1;
       transform: translateX(0);
     }
+  }
+  
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-10px); }
+    75% { transform: translateX(10px); }
   }
 `;
 document.head.appendChild(style);
