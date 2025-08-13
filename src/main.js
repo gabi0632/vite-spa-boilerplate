@@ -24,6 +24,7 @@ class VitalWatch {
     app.appendChild(this.createNavigation());
     app.appendChild(this.createHeroSection());
     app.appendChild(this.createFeaturesSection());
+    app.appendChild(this.createTrustSection());
     app.appendChild(this.createHealthSection());
     app.appendChild(this.createDesignSection());
     app.appendChild(this.createFAQSection());
@@ -78,14 +79,14 @@ class VitalWatch {
     
     // Hero content
     const heroContent = this.createElement('div', 'hero-content');
-    const title = this.createElement('h1', 'hero-title', 'Take Control of Your Health with VitalWatch');
-    const subtitle = this.createElement('p', 'hero-subtitle', 'Continuous, real-time health monitoring for a proactive and healthier you. Revolutionary hydration tracking meets cutting-edge vital sign analysis.');
+    const title = this.createElement('h1', 'hero-title', 'Your Best Health Starts Now.');
+    const subtitle = this.createElement('p', 'hero-subtitle', 'VitaWatch gives you the real-time insights you need to live a more active, mindful, and empowered life.');
     
     const heroCTA = this.createElement('div', 'hero-cta');
-    const primaryBtn = this.createElement('button', 'btn-primary', 'Shop Now');
-    primaryBtn.setAttribute('aria-label', 'Shop for VitalWatch - opens ordering page');
-    const secondaryBtn = this.createElement('button', 'btn-secondary', 'Discover the Features');
-    secondaryBtn.setAttribute('aria-label', 'Learn more about VitalWatch features');
+    const primaryBtn = this.createElement('button', 'btn-primary pulsing-cta', 'Shop Now');
+    primaryBtn.setAttribute('aria-label', 'Shop for VitaWatch - opens ordering page');
+    const secondaryBtn = this.createElement('button', 'btn-secondary', 'See a Demo');
+    secondaryBtn.setAttribute('aria-label', 'Watch VitaWatch demo');
     heroCTA.appendChild(primaryBtn);
     heroCTA.appendChild(secondaryBtn);
 
@@ -220,22 +221,22 @@ class VitalWatch {
     const features = [
       {
         icon: '🌊',
-        title: 'Hydration Intelligence',
+        title: 'Know Your Body\'s Rhythm',
         description: 'Advanced bio-impedance sensors detect dehydration before symptoms appear. Personalized hydration targets based on your activity, climate, and health goals.'
       },
       {
         icon: '💓',
-        title: 'Continuous Vitals',
+        title: 'Feel Confident Every Beat',
         description: 'Real-time ECG, heart rate variability, blood oxygen, and body temperature monitoring with medical-grade accuracy. AI-powered trend analysis alerts you to changes.'
       },
       {
         icon: '🧠',
-        title: 'Smart Health Insights',
+        title: 'Unlock Your Potential',
         description: 'Machine learning algorithms analyze your unique patterns to predict health risks, optimize performance, and provide personalized wellness recommendations.'
       },
       {
         icon: '🔋',
-        title: 'All-Day Power',
+        title: 'Power Through Your Day',
         description: 'Revolutionary power management delivers 18+ hours of continuous monitoring. Fast charge to 80% in just 30 minutes with our advanced battery technology.'
       }
     ];
@@ -260,6 +261,82 @@ class VitalWatch {
     return section;
   }
 
+  createTrustSection() {
+    const section = this.createElement('section', 'trust-section');
+    const sectionContainer = this.createElement('div', 'section-container');
+    
+    const title = this.createElement('h2', 'section-title', 'Trusted by Health-Conscious People Everywhere');
+    
+    const trustContent = this.createElement('div', 'trust-content');
+    
+    // Customer testimonials
+    const testimonialsGrid = this.createElement('div', 'testimonials-grid');
+    
+    const testimonials = [
+      {
+        name: 'Sarah Chen',
+        title: 'Fitness Enthusiast',
+        quote: 'VitaWatch helped me understand my hydration patterns like never before. I feel more energized throughout the day.',
+        avatar: '👩🏻‍💼'
+      },
+      {
+        name: 'Dr. Michael Rodriguez',
+        title: 'Cardiologist',
+        quote: 'The continuous monitoring capabilities are impressive. My patients love the real-time insights.',
+        avatar: '👨🏽‍⚕️'
+      },
+      {
+        name: 'Emma Thompson',
+        title: 'Marathon Runner',
+        quote: 'Game-changing for my training. The hydration alerts during long runs are incredibly accurate.',
+        avatar: '🏃🏻‍♀️'
+      }
+    ];
+
+    testimonials.forEach(testimonial => {
+      const testimonialCard = this.createElement('div', 'testimonial-card');
+      
+      const quote = this.createElement('blockquote', 'testimonial-quote', `"${testimonial.quote}"`);
+      
+      const author = this.createElement('div', 'testimonial-author');
+      const avatar = this.createElement('span', 'testimonial-avatar', testimonial.avatar);
+      const authorInfo = this.createElement('div', 'testimonial-info');
+      const name = this.createElement('h4', 'testimonial-name', testimonial.name);
+      const title = this.createElement('p', 'testimonial-title', testimonial.title);
+      
+      authorInfo.appendChild(name);
+      authorInfo.appendChild(title);
+      author.appendChild(avatar);
+      author.appendChild(authorInfo);
+      
+      testimonialCard.appendChild(quote);
+      testimonialCard.appendChild(author);
+      testimonialsGrid.appendChild(testimonialCard);
+    });
+
+    // Featured in media
+    const mediaSection = this.createElement('div', 'media-features');
+    const mediaTitle = this.createElement('h3', 'media-title', 'Featured In');
+    const mediaLogos = this.createElement('div', 'media-logos');
+    
+    const publications = ['Forbes', 'Wired', 'TechCrunch', 'Harvard Health', 'Men\'s Health'];
+    publications.forEach(pub => {
+      const logo = this.createElement('span', 'media-logo', pub);
+      mediaLogos.appendChild(logo);
+    });
+
+    mediaSection.appendChild(mediaTitle);
+    mediaSection.appendChild(mediaLogos);
+
+    trustContent.appendChild(testimonialsGrid);
+    trustContent.appendChild(mediaSection);
+    sectionContainer.appendChild(title);
+    sectionContainer.appendChild(trustContent);
+    section.appendChild(sectionContainer);
+
+    return section;
+  }
+
   createHealthSection() {
     const section = this.createElement('section', 'health-section');
     section.id = 'health';
@@ -274,12 +351,12 @@ class VitalWatch {
     
     const healthFeatures = this.createElement('ul', 'health-features');
     const features = [
-      'Continuous hydration monitoring',
-      'ECG heart rhythm analysis',
-      'Blood oxygen saturation tracking',
-      'Core body temperature sensing',
-      'Stress level detection',
-      'Sleep quality assessment'
+      'Stay perfectly hydrated throughout your day',
+      'Monitor your heart\'s rhythm with medical precision',
+      'Track oxygen levels like a professional athlete',
+      'Know your body temperature patterns intimately',
+      'Detect and manage stress before it overwhelms you',
+      'Optimize your sleep for peak recovery'
     ];
 
     features.forEach(feature => {
@@ -462,8 +539,8 @@ class VitalWatch {
     const sectionContainer = this.createElement('div', 'section-container');
     const waitlistContent = this.createElement('div', 'waitlist-content');
     
-    const h2 = this.createElement('h2', '', 'Join the VitalWatch Waitlist');
-    const p = this.createElement('p', '', 'Be among the first to experience the future of health monitoring. Get exclusive early access and special pricing.');
+    const h2 = this.createElement('h2', '', 'Be the First to Experience the Future of Health');
+    const p = this.createElement('p', '', 'Join an exclusive community of health pioneers and get VitaWatch before anyone else, plus insider pricing.');
     
     // Modern waitlist form with floating label
     const waitlistForm = this.createElement('div', 'waitlist-form');
@@ -554,47 +631,111 @@ class VitalWatch {
     const footer = this.createElement('footer', 'footer');
     const footerContainer = this.createElement('div', 'footer-container');
     
+    // Main footer content
+    const footerMain = this.createElement('div', 'footer-main');
+    
     // Footer brand
     const footerBrand = this.createElement('div', 'footer-brand');
-    const h4 = this.createElement('h4', '', 'VitalWatch');
-    const p = this.createElement('p', '', 'The future of health monitoring');
-    footerBrand.appendChild(h4);
-    footerBrand.appendChild(p);
+    const logo = this.createElement('div', 'footer-logo', 'VitaWatch');
+    const tagline = this.createElement('p', 'footer-tagline', 'The future of health monitoring');
+    const description = this.createElement('p', 'footer-description', 'Advanced wearable technology that puts your health insights at your fingertips. Monitor, analyze, and optimize your wellness journey with precision.');
     
-    // Footer links
+    // Social media links
+    const socialLinks = this.createElement('div', 'social-links');
+    const socialPlatforms = [
+      { name: 'Facebook', icon: '📘', href: '#facebook' },
+      { name: 'Twitter', icon: '🐦', href: '#twitter' },
+      { name: 'Instagram', icon: '📷', href: '#instagram' },
+      { name: 'LinkedIn', icon: '💼', href: '#linkedin' }
+    ];
+
+    socialPlatforms.forEach(social => {
+      const socialLink = this.createElement('a', 'social-link', social.icon);
+      socialLink.href = social.href;
+      socialLink.setAttribute('aria-label', `Follow us on ${social.name}`);
+      socialLinks.appendChild(socialLink);
+    });
+
+    footerBrand.appendChild(logo);
+    footerBrand.appendChild(tagline);
+    footerBrand.appendChild(description);
+    footerBrand.appendChild(socialLinks);
+    
+    // Footer links - organized by category
     const footerLinks = this.createElement('div', 'footer-links');
     
     const columns = [
       {
         title: 'Product',
-        links: ['Features', 'Specifications', 'Compatibility']
+        links: [
+          { text: 'Features', href: '#features' },
+          { text: 'Specifications', href: '#specs' },
+          { text: 'Compatibility', href: '#compatibility' },
+          { text: 'Pricing', href: '#pricing' }
+        ]
       },
       {
         title: 'Support',
-        links: ['User Guide', 'Contact', 'Warranty']
+        links: [
+          { text: 'User Guide', href: '#guide' },
+          { text: 'Contact Support', href: '#contact' },
+          { text: 'Warranty', href: '#warranty' },
+          { text: 'Returns', href: '#returns' }
+        ]
       },
       {
         title: 'Company',
-        links: ['About', 'Privacy', 'Terms']
+        links: [
+          { text: 'About Us', href: '#about' },
+          { text: 'Careers', href: '#careers' },
+          { text: 'Press Kit', href: '#press' },
+          { text: 'Blog', href: '#blog' }
+        ]
+      },
+      {
+        title: 'Legal',
+        links: [
+          { text: 'Privacy Policy', href: '#privacy' },
+          { text: 'Terms of Service', href: '#terms' },
+          { text: 'GDPR', href: '#gdpr' },
+          { text: 'Accessibility', href: '#accessibility' }
+        ]
       }
     ];
 
     columns.forEach(column => {
       const footerColumn = this.createElement('div', 'footer-column');
-      const h5 = this.createElement('h5', '', column.title);
+      const h5 = this.createElement('h5', 'footer-column-title', column.title);
       footerColumn.appendChild(h5);
       
-      column.links.forEach(linkText => {
-        const a = this.createElement('a', '', linkText);
-        a.href = '#';
+      column.links.forEach(link => {
+        const a = this.createElement('a', 'footer-link', link.text);
+        a.href = link.href;
         footerColumn.appendChild(a);
       });
       
       footerLinks.appendChild(footerColumn);
     });
 
-    footerContainer.appendChild(footerBrand);
-    footerContainer.appendChild(footerLinks);
+    footerMain.appendChild(footerBrand);
+    footerMain.appendChild(footerLinks);
+
+    // Footer bottom
+    const footerBottom = this.createElement('div', 'footer-bottom');
+    const copyright = this.createElement('p', 'footer-copyright', '© 2024 VitaWatch. All rights reserved.');
+    const certifications = this.createElement('div', 'footer-certifications');
+    
+    const certs = ['FDA Cleared', 'CE Marked', 'FCC ID', 'ISO 13485'];
+    certs.forEach(cert => {
+      const certBadge = this.createElement('span', 'cert-badge', cert);
+      certifications.appendChild(certBadge);
+    });
+
+    footerBottom.appendChild(copyright);
+    footerBottom.appendChild(certifications);
+
+    footerContainer.appendChild(footerMain);
+    footerContainer.appendChild(footerBottom);
     footer.appendChild(footerContainer);
 
     return footer;
@@ -608,6 +749,7 @@ class VitalWatch {
     this.setupParallaxEffects();
     this.setupHealthcareAnimations();
     this.setupScrollAnimations();
+    this.setupHealthDashboardAnimations();
     this.setupFAQInteractivity();
     this.setupWaitlistForm();
   }
@@ -877,12 +1019,83 @@ class VitalWatch {
     }, observerOptions);
 
     // Observe elements for scroll animations
-    document.querySelectorAll('.feature-card, .dashboard-card, .design-feature').forEach(el => {
+    document.querySelectorAll('.feature-card, .dashboard-card, .design-feature, .testimonial-card').forEach(el => {
       el.style.opacity = '0';
       el.style.transform = 'translateY(30px)';
       el.style.transition = 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
       observer.observe(el);
     });
+  }
+
+  setupHealthDashboardAnimations() {
+    const dashboardObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          this.animateHealthCharts();
+        }
+      });
+    }, { threshold: 0.3 });
+
+    const healthDashboard = document.querySelector('.health-dashboard');
+    if (healthDashboard) {
+      dashboardObserver.observe(healthDashboard);
+    }
+  }
+
+  animateHealthCharts() {
+    // Animate progress ring
+    const progressRing = document.querySelector('.progress-ring');
+    if (progressRing) {
+      const progressValue = document.querySelector('.progress-value');
+      let currentValue = 0;
+      const targetValue = 85;
+      
+      const animateValue = () => {
+        currentValue += 2;
+        if (currentValue <= targetValue) {
+          if (progressValue) {
+            progressValue.textContent = `${currentValue}%`;
+          }
+          progressRing.style.background = `conic-gradient(
+            from 0deg,
+            var(--color-vibrant-accent) 0deg,
+            var(--color-vibrant-accent) ${currentValue * 3.6}deg,
+            rgba(0, 194, 199, 0.2) ${currentValue * 3.6}deg,
+            rgba(0, 194, 199, 0.2) 360deg
+          )`;
+          requestAnimationFrame(animateValue);
+        }
+      };
+      
+      setTimeout(animateValue, 300);
+    }
+
+    // Animate heart chart with realistic pattern
+    const heartChart = document.querySelector('.heart-chart');
+    if (heartChart) {
+      const heartLine = document.querySelector('.heart-line');
+      if (heartLine) {
+        heartLine.style.animation = 'heartBeatChart 2s ease-in-out infinite';
+      }
+    }
+
+    // Animate temperature gauge
+    const tempGauge = document.querySelector('.temp-gauge');
+    if (tempGauge) {
+      let temp = 95.0;
+      const targetTemp = 98.6;
+      
+      const animateTemp = () => {
+        temp += 0.1;
+        if (temp <= targetTemp) {
+          tempGauge.textContent = `${temp.toFixed(1)}°F`;
+          tempGauge.style.color = temp > 98.0 ? 'var(--color-success)' : 'var(--color-warning)';
+          requestAnimationFrame(animateTemp);
+        }
+      };
+      
+      setTimeout(animateTemp, 600);
+    }
   }
 
   setupFAQInteractivity() {
