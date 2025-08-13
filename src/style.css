@@ -59,6 +59,12 @@
   --color-health-temp: #2ED573;
   --color-health-bg: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   --color-trust-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  
+  /* 3D Effects */
+  --depth-1: 10px;
+  --depth-2: 20px;
+  --depth-3: 30px;
+  --depth-4: 50px;
 }
 
 /* Reset and Base Styles */
@@ -238,7 +244,7 @@ body {
   background: var(--color-primary-hover) !important;
 }
 
-/* Hero Section with parallax and trust-building elements */
+/* Enhanced 3D Hero Section */
 .hero {
   padding: 120px var(--spacing-md) var(--spacing-3xl);
   max-width: 1200px;
@@ -250,6 +256,8 @@ body {
   min-height: 100vh;
   position: relative;
   overflow: hidden;
+  perspective: 1200px;
+  transform-style: preserve-3d;
 }
 
 .hero::before {
@@ -257,16 +265,39 @@ body {
   position: absolute;
   top: -50%;
   right: -10%;
-  width: 500px;
-  height: 500px;
-  background: radial-gradient(circle, rgba(0, 122, 255, 0.1) 0%, transparent 70%);
+  width: 600px;
+  height: 600px;
+  background: 
+    radial-gradient(circle at 30% 40%, rgba(0, 122, 255, 0.15) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(102, 126, 234, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 40% 80%, rgba(55, 58, 250, 0.08) 0%, transparent 50%);
   border-radius: 50%;
-  animation: heroGlow 4s ease-in-out infinite alternate;
+  animation: heroGlow3D 8s ease-in-out infinite alternate;
+  transform-style: preserve-3d;
 }
 
-@keyframes heroGlow {
-  from { transform: scale(1) rotate(0deg); }
-  to { transform: scale(1.2) rotate(360deg); }
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: -30%;
+  left: -15%;
+  width: 400px;
+  height: 400px;
+  background: 
+    conic-gradient(from 0deg, rgba(46, 213, 115, 0.1) 0deg, transparent 60deg, rgba(255, 71, 87, 0.08) 120deg, transparent 180deg, rgba(55, 58, 250, 0.06) 240deg, transparent 300deg);
+  border-radius: 50%;
+  animation: heroGlow3D 10s ease-in-out infinite reverse;
+}
+
+@keyframes heroGlow3D {
+  from { 
+    transform: scale(1) rotate(0deg) translateZ(0px);
+    opacity: 0.6;
+  }
+  to { 
+    transform: scale(1.3) rotate(360deg) translateZ(var(--depth-2));
+    opacity: 0.3;
+  }
 }
 
 .hero-content {
@@ -284,8 +315,17 @@ body {
 
 .hero-visual {
   opacity: 0;
-  transform: translateX(50px);
-  animation: slideInRight 1s var(--smooth) 0.7s forwards;
+  transform: translateX(50px) translateZ(0px);
+  animation: slideInRight3D 1.2s var(--smooth) 0.7s forwards;
+  perspective: 1000px;
+  transform-style: preserve-3d;
+}
+
+@keyframes slideInRight3D {
+  to {
+    opacity: 1;
+    transform: translateX(0) translateZ(var(--depth-1));
+  }
 }
 
 @keyframes slideInRight {
@@ -353,58 +393,347 @@ body {
   animation: fadeInUp 1s var(--smooth) 1.4s forwards;
 }
 
-/* Watch Display with enhanced healthcare animations */
+/* Enhanced 3D Watch Display with dynamic health elements */
 .watch-display {
   display: flex;
   justify-content: center;
   align-items: center;
   position: relative;
+  perspective: 1000px;
+  transform-style: preserve-3d;
 }
 
+/* 3D Background with depth layers */
 .watch-display::before,
 .watch-display::after {
   content: '';
   position: absolute;
   border-radius: 50%;
-  animation: pulse 3s ease-in-out infinite;
+  animation: pulse3D 4s ease-in-out infinite;
+  transform-style: preserve-3d;
 }
 
 .watch-display::before {
-  width: 350px;
-  height: 350px;
-  background: rgba(0, 122, 255, 0.1);
+  width: 450px;
+  height: 450px;
+  background: radial-gradient(circle, rgba(0, 122, 255, 0.15) 0%, rgba(102, 126, 234, 0.1) 50%, transparent 100%);
   animation-delay: 0s;
+  transform: translateZ(-50px);
 }
 
 .watch-display::after {
-  width: 400px;
-  height: 400px;
-  background: rgba(0, 122, 255, 0.05);
-  animation-delay: 1s;
+  width: 550px;
+  height: 550px;
+  background: radial-gradient(circle, rgba(55, 58, 250, 0.08) 0%, rgba(0, 122, 255, 0.05) 50%, transparent 100%);
+  animation-delay: 2s;
+  transform: translateZ(-100px);
 }
 
-@keyframes pulse {
-  0%, 100% { transform: scale(1); opacity: 0.3; }
-  50% { transform: scale(1.1); opacity: 0.1; }
+@keyframes pulse3D {
+  0%, 100% { 
+    transform: scale(1) translateZ(var(--z-depth, 0px)) rotateX(0deg); 
+    opacity: 0.4; 
+  }
+  50% { 
+    transform: scale(1.2) translateZ(var(--z-depth, 0px)) rotateX(5deg); 
+    opacity: 0.1; 
+  }
+}
+
+/* Floating Health Particles */
+.health-particles {
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  pointer-events: none;
+  animation: particleContainer 20s linear infinite;
+}
+
+.particle {
+  position: absolute;
+  font-size: 20px;
+  animation: particleFloat 6s ease-in-out infinite;
+  opacity: 0.7;
+  transform-style: preserve-3d;
+}
+
+.heart-particle {
+  top: 15%;
+  left: 20%;
+  animation-delay: 0s;
+  animation-duration: 5s;
+}
+
+.hydration-particle {
+  top: 25%;
+  right: 15%;
+  animation-delay: 1s;
+  animation-duration: 7s;
+}
+
+.temp-particle {
+  bottom: 20%;
+  left: 25%;
+  animation-delay: 2s;
+  animation-duration: 6s;
+}
+
+.energy-particle {
+  bottom: 30%;
+  right: 20%;
+  animation-delay: 3s;
+  animation-duration: 8s;
+}
+
+.wellness-particle {
+  top: 45%;
+  left: 10%;
+  animation-delay: 4s;
+  animation-duration: 9s;
+}
+
+.pulse-particle {
+  top: 35%;
+  right: 10%;
+  animation-delay: 5s;
+  animation-duration: 7s;
+}
+
+@keyframes particleContainer {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes particleFloat {
+  0%, 100% { 
+    transform: translateY(0px) translateX(0px) scale(1) rotateZ(0deg);
+    opacity: 0.7;
+  }
+  25% {
+    transform: translateY(-20px) translateX(10px) scale(1.1) rotateZ(90deg);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(-10px) translateX(-15px) scale(0.9) rotateZ(180deg);
+    opacity: 0.8;
+  }
+  75% {
+    transform: translateY(15px) translateX(5px) scale(1.05) rotateZ(270deg);
+    opacity: 0.9;
+  }
 }
 
 .watch-face {
-  width: 300px;
-  height: 300px;
-  background: linear-gradient(145deg, #f0f0f5, #ffffff);
+  width: 320px;
+  height: 320px;
+  background: linear-gradient(145deg, #f8faff, #ffffff, #f0f4ff);
   border-radius: 50%;
-  box-shadow: var(--shadow-xl), 0 0 50px rgba(0, 122, 255, 0.3);
+  box-shadow: 
+    var(--shadow-xl),
+    inset 0 0 30px rgba(255, 255, 255, 0.8),
+    0 0 60px rgba(0, 122, 255, 0.4),
+    0 0 100px rgba(102, 126, 234, 0.2);
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
-  animation: float 6s ease-in-out infinite, watchGlow 4s ease-in-out infinite alternate;
+  animation: float3D 8s ease-in-out infinite, watchGlow3D 6s ease-in-out infinite alternate;
   z-index: 10;
+  transform-style: preserve-3d;
+  border: 3px solid rgba(255, 255, 255, 0.9);
 }
 
-@keyframes watchGlow {
-  from { box-shadow: var(--shadow-xl), 0 0 50px rgba(0, 122, 255, 0.3); }
-  to { box-shadow: var(--shadow-xl), 0 0 80px rgba(0, 122, 255, 0.5); }
+@keyframes float3D {
+  0%, 100% { 
+    transform: translateY(0px) rotateX(2deg) rotateY(2deg); 
+  }
+  25% { 
+    transform: translateY(-15px) rotateX(-1deg) rotateY(5deg); 
+  }
+  50% { 
+    transform: translateY(-8px) rotateX(3deg) rotateY(-2deg); 
+  }
+  75% { 
+    transform: translateY(12px) rotateX(-2deg) rotateY(-4deg); 
+  }
+}
+
+@keyframes watchGlow3D {
+  from { 
+    box-shadow: 
+      var(--shadow-xl),
+      inset 0 0 30px rgba(255, 255, 255, 0.8),
+      0 0 60px rgba(0, 122, 255, 0.4),
+      0 0 100px rgba(102, 126, 234, 0.2);
+  }
+  to { 
+    box-shadow: 
+      var(--shadow-xl),
+      inset 0 0 40px rgba(255, 255, 255, 0.9),
+      0 0 100px rgba(0, 122, 255, 0.6),
+      0 0 150px rgba(102, 126, 234, 0.3);
+  }
+}
+
+/* Watch Crown */
+.watch-crown {
+  position: absolute;
+  top: 50%;
+  right: -25px;
+  transform: translateY(-50%);
+  z-index: 15;
+}
+
+.crown-top,
+.crown-middle {
+  width: 12px;
+  height: 8px;
+  background: linear-gradient(145deg, #c0c0c0, #e8e8e8);
+  border-radius: 2px;
+  margin-bottom: 2px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  animation: crownGlow 3s ease-in-out infinite alternate;
+}
+
+.crown-top {
+  width: 8px;
+  height: 10px;
+  border-radius: 4px 4px 2px 2px;
+}
+
+@keyframes crownGlow {
+  from { box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); }
+  to { box-shadow: 0 2px 8px rgba(0, 122, 255, 0.4), 0 0 10px rgba(0, 122, 255, 0.2); }
+}
+
+/* Watch Band */
+.watch-band {
+  position: absolute;
+  width: 400px;
+  height: 60px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.band-segment {
+  width: 80px;
+  height: 30px;
+  background: linear-gradient(145deg, #2a2a2a, #4a4a4a, #2a2a2a);
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  animation: bandShimmer 4s ease-in-out infinite alternate;
+  position: relative;
+}
+
+.band-segment:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.band-segment:nth-child(2) {
+  animation-delay: 1s;
+  width: 60px;
+}
+
+.band-segment:nth-child(3) {
+  animation-delay: 2s;
+}
+
+@keyframes bandShimmer {
+  from { 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transform: scale(1);
+  }
+  to { 
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4), 0 0 10px rgba(0, 122, 255, 0.2);
+    transform: scale(1.02);
+  }
+}
+
+/* Watch Bezel */
+.watch-bezel {
+  position: absolute;
+  width: 340px;
+  height: 340px;
+  border: 2px solid rgba(200, 200, 200, 0.5);
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: bezelRotate 60s linear infinite;
+}
+
+.bezel-marker {
+  position: absolute;
+  width: 4px;
+  height: 20px;
+  background: linear-gradient(to bottom, #d0d0d0, #a0a0a0);
+  top: 5px;
+  left: 50%;
+  transform: translateX(-50%) rotate(var(--rotation));
+  transform-origin: 50% 162px;
+  border-radius: 2px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+@keyframes bezelRotate {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* Health Rings */
+.health-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 3px solid transparent;
+  animation: ringPulse 4s ease-in-out infinite;
+}
+
+.heart-ring {
+  width: 280px;
+  height: 280px;
+  border-color: rgba(255, 71, 87, 0.6);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation-delay: 0s;
+}
+
+.hydration-ring {
+  width: 310px;
+  height: 310px;
+  border-color: rgba(55, 58, 250, 0.5);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation-delay: 1s;
+}
+
+.temperature-ring {
+  width: 340px;
+  height: 340px;
+  border-color: rgba(46, 213, 115, 0.4);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation-delay: 2s;
+}
+
+@keyframes ringPulse {
+  0%, 100% { 
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.6;
+    border-width: 3px;
+  }
+  50% { 
+    transform: translate(-50%, -50%) scale(1.05);
+    opacity: 1;
+    border-width: 2px;
+  }
 }
 
 .watch-face::before {
@@ -429,12 +758,60 @@ body {
   gap: var(--spacing-sm);
   text-align: center;
   color: white;
+  z-index: 20;
+  position: relative;
+  transform-style: preserve-3d;
 }
 
 .vital-item {
   display: flex;
   flex-direction: column;
   gap: 4px;
+  position: relative;
+  animation: vitalItemFloat 5s ease-in-out infinite;
+}
+
+.vital-item:nth-child(1) { animation-delay: 0s; }
+.vital-item:nth-child(2) { animation-delay: 1s; }
+.vital-item:nth-child(3) { animation-delay: 2s; }
+
+@keyframes vitalItemFloat {
+  0%, 100% { transform: translateY(0px) scale(1); }
+  50% { transform: translateY(-3px) scale(1.02); }
+}
+
+.vital-icon {
+  font-size: 16px;
+  animation: iconPulse 2s ease-in-out infinite;
+  display: block;
+  margin-bottom: 2px;
+}
+
+@keyframes iconPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+}
+
+.vital-trend {
+  font-size: 12px;
+  margin-top: 2px;
+  opacity: 0.8;
+  animation: trendFloat 3s ease-in-out infinite;
+}
+
+.vital-trend.up {
+  color: #4ade80;
+  animation-delay: 0.5s;
+}
+
+.vital-trend.stable {
+  color: #fbbf24;
+  animation-delay: 1s;
+}
+
+@keyframes trendFloat {
+  0%, 100% { transform: translateX(0px); opacity: 0.8; }
+  50% { transform: translateX(2px); opacity: 1; }
 }
 
 .vital-label {
@@ -446,17 +823,194 @@ body {
 .vital-value {
   font-size: 18px;
   font-weight: var(--font-weight-bold);
-  animation: vitalPulse 2s ease-in-out infinite;
+  animation: vitalPulse3D 3s ease-in-out infinite;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.5));
 }
 
-@keyframes vitalPulse {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.05); }
+@keyframes vitalPulse3D {
+  0%, 100% { 
+    transform: scale(1) translateZ(0px);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  }
+  50% { 
+    transform: scale(1.08) translateZ(10px);
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.4), 0 0 10px rgba(255, 255, 255, 0.6);
+  }
+}
+
+/* Watch Hands Animation */
+.watch-hands {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 15;
+}
+
+.hour-hand,
+.minute-hand,
+.second-hand {
+  position: absolute;
+  background: linear-gradient(to top, #333, #666);
+  border-radius: 2px;
+  transform-origin: bottom center;
+  left: 50%;
+  bottom: 50%;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
+
+.hour-hand {
+  width: 4px;
+  height: 60px;
+  margin-left: -2px;
+  animation: hourRotate 43200s linear infinite;
+  background: linear-gradient(to top, #222, #555);
+}
+
+.minute-hand {
+  width: 3px;
+  height: 80px;
+  margin-left: -1.5px;
+  animation: minuteRotate 3600s linear infinite;
+  background: linear-gradient(to top, #333, #666);
+}
+
+.second-hand {
+  width: 1px;
+  height: 90px;
+  margin-left: -0.5px;
+  animation: secondRotate 60s linear infinite;
+  background: linear-gradient(to top, #ff4757, #ff6b7a);
+  box-shadow: 0 0 3px rgba(255, 71, 87, 0.5);
+}
+
+.center-dot {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: radial-gradient(circle, #333, #666);
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
+  z-index: 16;
+}
+
+@keyframes hourRotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes minuteRotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes secondRotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 
 @keyframes float {
   0%, 100% { transform: translateY(0px); }
   50% { transform: translateY(-20px); }
+}
+
+/* Floating Health Indicators */
+.floating-indicators {
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 5;
+}
+
+.health-indicator {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  border-radius: 12px;
+  padding: 8px 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  animation: indicatorFloat 6s ease-in-out infinite;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.ecg-indicator {
+  top: 10%;
+  left: 5%;
+  animation-delay: 0s;
+  animation-duration: 7s;
+}
+
+.spo2-indicator {
+  top: 20%;
+  right: 10%;
+  animation-delay: 2s;
+  animation-duration: 8s;
+}
+
+.steps-indicator {
+  bottom: 15%;
+  left: 8%;
+  animation-delay: 4s;
+  animation-duration: 6s;
+}
+
+@keyframes indicatorFloat {
+  0%, 100% { 
+    transform: translateY(0px) translateX(0px) scale(1);
+    opacity: 0.8;
+  }
+  25% {
+    transform: translateY(-15px) translateX(5px) scale(1.05);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(-8px) translateX(-8px) scale(0.95);
+    opacity: 0.9;
+  }
+  75% {
+    transform: translateY(10px) translateX(3px) scale(1.02);
+    opacity: 0.95;
+  }
+}
+
+.indicator-label {
+  color: #666;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 2px;
+  display: block;
+}
+
+.indicator-value {
+  color: #333;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+/* ECG Line Animation */
+.ecg-line {
+  width: 40px;
+  height: 20px;
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 20"><path d="M0,10 L8,10 L10,5 L12,15 L14,2 L16,18 L18,10 L40,10" stroke="%23ff4757" stroke-width="2" fill="none"/></svg>') no-repeat center;
+  background-size: contain;
+  animation: ecgPulse 2s ease-in-out infinite;
+}
+
+@keyframes ecgPulse {
+  0%, 100% { transform: scaleX(1); opacity: 0.8; }
+  50% { transform: scaleX(1.1); opacity: 1; }
 }
 
 /* Enhanced Healthcare Buttons with trust animations */
@@ -597,6 +1151,66 @@ body {
 .features .section-container {
   position: relative;
   z-index: 1;
+}
+
+/* 3D Floating Health Icons */
+.features-bg-3d {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.floating-health-icon {
+  position: absolute;
+  font-size: clamp(2rem, 4vw, 4rem);
+  opacity: 0.15;
+  animation: float3DIcon var(--duration, 15s) ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
+  transform-style: preserve-3d;
+}
+
+.floating-health-icon:nth-child(1) {
+  top: 20%;
+  left: 10%;
+}
+
+.floating-health-icon:nth-child(2) {
+  top: 60%;
+  right: 15%;
+}
+
+.floating-health-icon:nth-child(3) {
+  bottom: 30%;
+  left: 20%;
+}
+
+.floating-health-icon:nth-child(4) {
+  top: 35%;
+  right: 25%;
+}
+
+@keyframes float3DIcon {
+  0%, 100% {
+    transform: translateY(0px) translateX(0px) translateZ(0px) rotateY(0deg) rotateX(0deg);
+    opacity: 0.1;
+  }
+  25% {
+    transform: translateY(-30px) translateX(20px) translateZ(20px) rotateY(90deg) rotateX(15deg);
+    opacity: 0.2;
+  }
+  50% {
+    transform: translateY(-10px) translateX(-15px) translateZ(10px) rotateY(180deg) rotateX(0deg);
+    opacity: 0.15;
+  }
+  75% {
+    transform: translateY(20px) translateX(10px) translateZ(-10px) rotateY(270deg) rotateX(-15deg);
+    opacity: 0.25;
+  }
 }
 
 .features-grid {
