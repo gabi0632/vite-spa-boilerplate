@@ -1,4 +1,5 @@
 import './style.css'
+import { htmlTemplate } from './template.js'
 
 // VitalWatch Enhanced Interactive Features
 class VitalWatch {
@@ -9,7 +10,16 @@ class VitalWatch {
       temperature: { value: 98.6, label: '°F', range: [98.0, 99.2] }
     };
     this.isPageLoaded = false;
+    this.renderHTML();
     this.init();
+  }
+
+  renderHTML() {
+    // Inject the HTML template into the app container
+    const app = document.getElementById('app');
+    if (app) {
+      app.innerHTML = htmlTemplate;
+    }
   }
 
   init() {
