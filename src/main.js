@@ -41,6 +41,8 @@ class VitalWatch {
 
   createNavigation() {
     const nav = this.createElement('nav', 'nav');
+    nav.setAttribute('role', 'navigation');
+    nav.setAttribute('aria-label', 'Main navigation');
     const navContainer = this.createElement('div', 'nav-container');
     
     const logo = this.createElement('div', 'nav-logo', 'VitalWatch');
@@ -58,6 +60,7 @@ class VitalWatch {
       const li = this.createElement('li');
       const a = this.createElement('a', item.className || '', item.text);
       a.href = item.href;
+      a.setAttribute('aria-label', `Navigate to ${item.text} section`);
       li.appendChild(a);
       navMenu.appendChild(li);
     });
@@ -75,12 +78,14 @@ class VitalWatch {
     
     // Hero content
     const heroContent = this.createElement('div', 'hero-content');
-    const title = this.createElement('h1', 'hero-title', 'The ultimate device for a healthy life.');
-    const subtitle = this.createElement('p', 'hero-subtitle', 'VitalWatch revolutionizes personal health monitoring with advanced hydration tracking, real-time vitals, and intelligent insights.');
+    const title = this.createElement('h1', 'hero-title', 'Take Control of Your Health with VitalWatch');
+    const subtitle = this.createElement('p', 'hero-subtitle', 'Continuous, real-time health monitoring for a proactive and healthier you. Revolutionary hydration tracking meets cutting-edge vital sign analysis.');
     
     const heroCTA = this.createElement('div', 'hero-cta');
-    const primaryBtn = this.createElement('button', 'btn-primary', 'Order VitalWatch');
-    const secondaryBtn = this.createElement('button', 'btn-secondary', 'Watch the film');
+    const primaryBtn = this.createElement('button', 'btn-primary', 'Shop Now');
+    primaryBtn.setAttribute('aria-label', 'Shop for VitalWatch - opens ordering page');
+    const secondaryBtn = this.createElement('button', 'btn-secondary', 'Discover the Features');
+    secondaryBtn.setAttribute('aria-label', 'Learn more about VitalWatch features');
     heroCTA.appendChild(primaryBtn);
     heroCTA.appendChild(secondaryBtn);
 
@@ -214,24 +219,24 @@ class VitalWatch {
     
     const features = [
       {
-        icon: '💧',
+        icon: '🌊',
         title: 'Hydration Intelligence',
-        description: 'Advanced sensors detect dehydration before you feel thirsty. Get personalized hydration reminders and track your daily water intake with precision.'
+        description: 'Advanced bio-impedance sensors detect dehydration before symptoms appear. Personalized hydration targets based on your activity, climate, and health goals.'
       },
       {
-        icon: '❤️',
-        title: 'Comprehensive Vitals',
-        description: 'Monitor heart rate, blood oxygen, body temperature, and stress levels in real-time. AI-powered insights help you understand your body better.'
+        icon: '💓',
+        title: 'Continuous Vitals',
+        description: 'Real-time ECG, heart rate variability, blood oxygen, and body temperature monitoring with medical-grade accuracy. AI-powered trend analysis alerts you to changes.'
       },
       {
-        icon: '📊',
-        title: 'Personal Health Insights',
-        description: 'Machine learning algorithms analyze your health patterns and provide actionable recommendations for better wellness and performance.'
+        icon: '🧠',
+        title: 'Smart Health Insights',
+        description: 'Machine learning algorithms analyze your unique patterns to predict health risks, optimize performance, and provide personalized wellness recommendations.'
       },
       {
-        icon: '⚡',
-        title: 'All-Day Battery',
-        description: 'Up to 18 hours of battery life with fast charging. Never miss a beat with our power-efficient health monitoring technology.'
+        icon: '🔋',
+        title: 'All-Day Power',
+        description: 'Revolutionary power management delivers 18+ hours of continuous monitoring. Fast charge to 80% in just 30 minutes with our advanced battery technology.'
       }
     ];
 
@@ -460,18 +465,25 @@ class VitalWatch {
     const h2 = this.createElement('h2', '', 'Join the VitalWatch Waitlist');
     const p = this.createElement('p', '', 'Be among the first to experience the future of health monitoring. Get exclusive early access and special pricing.');
     
-    // Waitlist form
+    // Modern waitlist form with floating label
     const waitlistForm = this.createElement('div', 'waitlist-form');
+    
+    const inputContainer = this.createElement('div', 'input-container');
     const emailInput = document.createElement('input');
     emailInput.type = 'email';
     emailInput.id = 'email-input';
-    emailInput.placeholder = 'Enter your email address';
     emailInput.required = true;
+    
+    const floatingLabel = this.createElement('label', 'floating-label', 'Enter your email address');
+    floatingLabel.setAttribute('for', 'email-input');
+    
+    inputContainer.appendChild(emailInput);
+    inputContainer.appendChild(floatingLabel);
     
     const joinButton = this.createElement('button', 'btn-primary', 'Join Waitlist');
     joinButton.id = 'join-waitlist-btn';
     
-    waitlistForm.appendChild(emailInput);
+    waitlistForm.appendChild(inputContainer);
     waitlistForm.appendChild(joinButton);
     
     // Success message
