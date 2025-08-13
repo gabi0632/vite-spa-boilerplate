@@ -39,73 +39,48 @@
         </div>
         <div class="hero-visual">
           <div class="watch-display">
-            <!-- 3D Background particles -->
-            <div class="health-particles">
-              <div class="particle heart-particle">💗</div>
-              <div class="particle hydration-particle">💧</div>
-              <div class="particle temp-particle">🌡️</div>
-              <div class="particle energy-particle">⚡</div>
-              <div class="particle wellness-particle">🌟</div>
-              <div class="particle pulse-particle">📊</div>
-            </div>
-            
-            <!-- Watch Components -->
-            <div class="watch-crown">
-              <div class="crown-top"></div>
-              <div class="crown-middle"></div>
-            </div>
-            
-            <div class="watch-band">
-              <div class="band-segment"></div>
-              <div class="band-segment"></div>
-              <div class="band-segment"></div>
-            </div>
-            
-            <div class="watch-face">
-              <!-- Watch bezel -->
-              <div class="watch-bezel">
-                <div class="bezel-marker" style="--rotation: 0deg;"></div>
-                <div class="bezel-marker" style="--rotation: 90deg;"></div>
-                <div class="bezel-marker" style="--rotation: 180deg;"></div>
-                <div class="bezel-marker" style="--rotation: 270deg;"></div>
+            <!-- Clean watch design based on reference -->
+            <div class="watch-container">
+              <!-- Watch band -->
+              <div class="watch-band">
+                <div class="band-left"></div>
+                <div class="band-right"></div>
               </div>
               
-              <!-- Health rings around the watch -->
-              <div class="health-ring heart-ring"></div>
-              <div class="health-ring hydration-ring"></div>
-              <div class="health-ring temperature-ring"></div>
+              <!-- Watch crown -->
+              <div class="watch-crown"></div>
               
-              <div class="vitals-display">
-                <div class="vital-item">
-                  <span class="vital-icon">💓</span>
-                  <span class="vital-label">Heart Rate</span>
-                  <span class="vital-value">72 BPM</span>
-                  <div class="vital-trend up">↗️</div>
+              <!-- Main watch face -->
+              <div class="watch-face">
+                <!-- Background glow -->
+                <div class="watch-glow"></div>
+                
+                <!-- Health rings -->
+                <div class="health-rings">
+                  <div class="health-ring heart-ring"></div>
+                  <div class="health-ring hydration-ring"></div>
+                  <div class="health-ring temperature-ring"></div>
                 </div>
-                <div class="vital-item">
-                  <span class="vital-icon">💧</span>
-                  <span class="vital-label">Hydration</span>
-                  <span class="vital-value">85%</span>
-                  <div class="vital-trend stable">➡️</div>
+                
+                <!-- Center display -->
+                <div class="center-display">
+                  <div class="vital-reading heart-reading">
+                    <span class="vital-label">Heart Rate</span>
+                    <span class="vital-value">77 BPM</span>
+                  </div>
+                  <div class="vital-reading hydration-reading">
+                    <span class="vital-label">Hydration</span>
+                    <span class="vital-value">84%</span>
+                  </div>
+                  <div class="vital-reading temperature-reading">
+                    <span class="vital-label">Temperature</span>
+                    <span class="vital-value">98.6°F</span>
+                  </div>
                 </div>
-                <div class="vital-item">
-                  <span class="vital-icon">🌡️</span>
-                  <span class="vital-label">Temperature</span>
-                  <span class="vital-value">98.6°F</span>
-                  <div class="vital-trend stable">➡️</div>
-                </div>
-              </div>
-              
-              <!-- Watch hands animation -->
-              <div class="watch-hands">
-                <div class="hour-hand"></div>
-                <div class="minute-hand"></div>
-                <div class="second-hand"></div>
-                <div class="center-dot"></div>
               </div>
             </div>
             
-            <!-- Floating health indicators -->
+            <!-- Floating health indicators positioned around watch -->
             <div class="floating-indicators">
               <div class="health-indicator ecg-indicator">
                 <span class="indicator-label">ECG</span>
@@ -116,9 +91,16 @@
                 <span class="indicator-value">98%</span>
               </div>
               <div class="health-indicator steps-indicator">
-                <span class="indicator-label">Steps</span>
+                <span class="indicator-label">STEPS</span>
                 <span class="indicator-value">8,742</span>
               </div>
+            </div>
+            
+            <!-- Subtle background particles -->
+            <div class="ambient-particles">
+              <div class="particle">✨</div>
+              <div class="particle">💫</div>
+              <div class="particle">⭐</div>
             </div>
           </div>
         </div>

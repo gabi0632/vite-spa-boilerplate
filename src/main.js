@@ -74,19 +74,19 @@ class VitalWatch {
   setupAnimatedVitals() {
     // Enhanced heart rate animation with healthcare realism
     setInterval(() => {
-      const heartRateElement = document.querySelector('.vital-item:nth-child(1) .vital-value');
+      const heartRateElement = document.querySelector('.heart-reading .vital-value');
       if (heartRateElement) {
         const [min, max] = this.vitals.heartRate.range;
         const newRate = min + Math.floor(Math.random() * (max - min + 1));
         
         // Add pulse effect during update
         heartRateElement.style.transform = 'scale(1.1)';
-        heartRateElement.style.color = '#FF4757';
+        heartRateElement.style.filter = 'brightness(1.2)';
         
         setTimeout(() => {
           heartRateElement.textContent = `${newRate} BPM`;
           heartRateElement.style.transform = 'scale(1)';
-          heartRateElement.style.color = '';
+          heartRateElement.style.filter = '';
         }, 150);
         
         this.vitals.heartRate.value = newRate;
@@ -95,7 +95,7 @@ class VitalWatch {
 
     // Enhanced hydration animation with medical accuracy
     setInterval(() => {
-      const hydrationElement = document.querySelector('.vital-item:nth-child(2) .vital-value');
+      const hydrationElement = document.querySelector('.hydration-reading .vital-value');
       if (hydrationElement) {
         const [min, max] = this.vitals.hydration.range;
         const currentValue = this.vitals.hydration.value;
@@ -104,36 +104,22 @@ class VitalWatch {
         
         // Animate value change
         hydrationElement.style.transform = 'scale(1.1)';
-        hydrationElement.style.color = '#3742FA';
+        hydrationElement.style.filter = 'brightness(1.2)';
         
         setTimeout(() => {
           hydrationElement.textContent = `${newValue}%`;
           hydrationElement.style.transform = 'scale(1)';
-          hydrationElement.style.color = '';
+          hydrationElement.style.filter = '';
         }, 150);
         
-        // Update progress ring with smooth transition
-        const progressRing = document.querySelector('.progress-ring');
-        const progressValue = document.querySelector('.progress-value');
-        if (progressRing && progressValue) {
-          progressRing.style.background = `conic-gradient(var(--color-health-hydration) ${newValue}%, var(--color-surface) ${newValue}%)`;
-          progressValue.textContent = `${newValue}%`;
-          
-          // Add glow effect when hydration is optimal
-          if (newValue >= 90) {
-            progressRing.style.boxShadow = '0 0 20px rgba(55, 58, 250, 0.5)';
-          } else {
-            progressRing.style.boxShadow = 'none';
-          }
-        }
-        
         this.vitals.hydration.value = newValue;
+        this.updateHealthRings();
       }
     }, 4000);
 
     // Temperature monitoring with healthcare precision
     setInterval(() => {
-      const tempElement = document.querySelector('.temp-gauge');
+      const tempElement = document.querySelector('.temperature-reading .vital-value');
       if (tempElement) {
         const [min, max] = this.vitals.temperature.range;
         const newTemp = (min + Math.random() * (max - min)).toFixed(1);
