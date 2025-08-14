@@ -268,30 +268,6 @@ const Footer = () => {
             </motion.div>
           </div>
 
-          {/* Made with Claude Code */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            viewport={{ once: true }}
-            className="text-center mt-6 pt-6 border-t border-surface-800"
-          >
-            <p className="text-surface-500 text-sm">
-              🤖 Generated with{' '}
-              <a 
-                href="https://claude.ai/code" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="text-primary-400 hover:text-primary-300 transition-colors underline decoration-dotted underline-offset-2"
-              >
-                Claude Code
-              </a>
-            </p>
-            <p className="text-surface-600 text-xs mt-1">
-              Co-Authored-By: Claude &lt;noreply@anthropic.com&gt;
-            </p>
-          </motion.div>
-
           {/* Back to Top Button */}
           <motion.button
             onClick={handleScrollToTop}
